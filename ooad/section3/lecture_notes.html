@@ -95,14 +95,192 @@
 					</p>
 					<h5>Parameter Direction</h5>
 					<p class="lead">
-						
+						<table class="table">
+							<tr>
+								<th>Parameter Direction</th>
+								<th>Semantics</th>
+							</tr>
+							<tr>
+								<td>in</td>
+								<td>the parameter is an input to the operation. It is not changed by the operation. This is the default.</td>
+							</tr>
+							<tr>
+								<td>out</td>
+								<td>the parameter servers as a repository for output from the operation.</td>
+							</tr>
+							<tr>
+								<td>inout</td>
+								<td>the parameter is an input to the operation and it may be changed by the operation.</td>
+							</tr>
+							<tr>
+								<td>return</td>
+								<td>the parameter is one of the return values of the operation. An alternative way of specifying return values.</td>
+							</tr>
+						</table>
+					</p>
+					<p class="lead">
+						example of multiple return values: <br>
+						<code>
+							maxMin(in a:int, in b:int, return maxValue:int return minValue:int) <br>
+							... <br>
+							max, min = maxMin(5, 10)
+						</code>
 					</p>
 					<h4 id="section6">Scope</h4>
+					<p class="lead">
+						There are two kinds of scope for attributes and operations: <br>
+						Class scope in Java and C++ is implemented using the keyword static for both attributes and operations/methods. <br>
+						Operations with class scope can only operate on attributes with class scope.
+					</p>
+					<h5>Instance Scope vs. Class Scope</h5>
+					<p class="lead">
+						<table class="table">
+							<tr>
+								<th></th>
+								<th>Instance Scope</th>
+								<th>Class Scope</th>
+							</tr>
+							<tr>
+								<th>Attributes</th>
+								<td>
+									<table class="table">
+										<tr><td>By default, attributes have instance scope</td></tr>
+										<tr><td>Every object of the class gets its own copy of the instance scope attributes</td></tr>
+										<tr><td>Each object may therefore have different instance scope attribute values</td></tr>
+									</table>
+								</td>
+								<td>
+									<table class="table">
+										<tr><td>Attributes may be defined as class scope</td></tr>
+										<tr><td>Every object of the class shares the same, single copy of the class scope attributes</td></tr>
+										<tr><td>Each object will therefore have the same class scope attribute values</td></tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<th>Operations</th>
+								<td>
+									<table class="table">
+										<tr><td>By default, operations have instance scope</td></tr>
+										<tr><td>Every invocation of an instance scope operation applies to a specific instance of the class</td></tr>
+										<tr><td>You can't invoke scope operation unless you have an instance of the class available. You can't use an instance scope operation of a class to create objects of that class, as you could never create the first object</td></tr>
+									</table>
+								</td>
+								<td>
+									<table class="table">
+										<tr><td>Operations may be defined as class scope</td></tr>
+										<tr><td>Invocation of a class scope operation does not apply to any specific instance of the class insead, you can think of class scope operations as applying to the class itself</td></tr>
+										<tr><td>You can invoke a class scope operation even if there is not instance of the class vailable - this is ideal for object creation operations</td></tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						Scope determines access 
+					</p>
 					<h4 id="section7">Object Construction</h4>
+					<p class="lead">
+						How do we create instances of classes? <br>
+						Each class defines one or more class scope operations which are constructors. These operations create new instances of the class
+					</p>
+					<h5>ClubMember Class Example</h5>
+					<p class="lead">
+						<table class="table table-bordered table-sm">
+							<tr>
+								<td>ClubMember</td>
+							</tr>
+							<tr>
+								<td>
+									-membershipNumber : String <br>
+									-memberName : String <br>
+									-numberOfMembers : int = 0 <br>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									+create( number : String, name : String ) <br>
+									+getMembershipNumber() : String <br>
+									+getMemberName() : String <br>
+									-incrementNumberOfMembers() <br>
+									+decrementNumberOfMembers() <br>
+									+getNumberOfMembers() : int
+								</td>
+							</tr>
+						</table>
+					</p>
+					<p class="lead">
+						Each ClubMember object has its own copy of the attribute membershipNumber <br>
+						The numberOfMembers attribute exists only once and is shared by all instances of the ClubMember class <br>
+						Suppose that in the create operation we increment numberOfMembers: <br>
+						What is the value of count when we have created 3 account objects? <br>
+						Answer: 3
+					</p>
 					<h4 id="section8">Modelling Class Methods</h4>
+					<p class="lead">
+						The logic of the class methods can be captured using activity diagrams. <br>
+						Activity diagrams provide a rich set of features: <br>
+						<ul>
+							<li>Capture a flow of actions of arbitrary complexity including loops, if-else constructs, etc.</li>
+							<li>Object instantiation/desctruction can be captured, too, using the "object flow"</li>
+							<li>Exceptions and exception handlers can be defined as necessary</li>
+						</ul>
+					</p>
+					<p class="lead">
+						The decision, which methods are worth modelling with an activity diagram should be pragmatic <br>
+						<ul>
+							<li>The activity diagram should be only used if it adds value</li>
+							<li>Activity diagram should only be used if the designer wishes to communicate a specific logic to the programmers</li>
+						</ul>
+					</p>
+					<h5>Class Refinement with Visual Paradigm</h5>
+					<p class="lead">
+						Visual Paradigm allows us to maintain in the same project different models: <br>
+						<ul>
+							<li>Analysis model - dealing with problem domain</li>
+							<li>Design model - providing detailed design specifications to be used in implementation</li>
+							<li>Implementation model, e.g. dealing with sources code</li>
+						</ul>
+					</p>
+					<p class="lead">
+						These models define different namespaces <br>
+						<ul>
+							<li>Copying diagrams from Analysis to Design model is OK
+								<ul><li>
+								Modifications made to diagrams (e.g. class diagrams) in Design model do not affect the diagrams in the Analysis model.
+							</li></ul>
+						</li>
+						</ul>
+					</p>
+					<p class="lead">
+						In summary: When we move from Analysis to Design we must define a Design model and thus keep both Analysis and Design in the same .vpp project.
+					</p>
 					<h4 id="section9">Design - Refining Analysis Relationships</h4>
 					<h4 id="section10">Design Relationships</h4>
+					<p class="lead">
+						Refining analysis associations to design associations involves several procedures:
+						<ul>
+							<li>Refining associations to aggregation or composition relationships where appropriate <br>
+								<ul>
+									<li>implementing one-to-many assocations</li>
+									<li>implementing many-to-one associations</li>		
+									<li>implementing many-to-many associations</li>		
+									<li>implementing bidirectional associations</li>		
+									<li>implementing association classes</li>		
+								</ul>
+							</li>
+						</ul>
+					</p>
+					<p class="lead">
+						All design associations must have: <br>
+						<ul>
+							<li>navigability</li>
+							<li>multiplicity on both ends</li>
+						</ul>
+					</p>
 					<h4 id="section11">Aggregation and Composition</h4>
+					<p class="lead">
+						In analysis, we often use unrefined associations. In design, these can become aggregation or composition relationships <br>
+						We must also add navigability, multiplicity and role names
+					</p>
 					<h4 id="section12">1 to 1 and many to 1 associations</h4>
 					<h4 id="section13">1 to many associations</h4>
 					<h4 id="section14">Many to Many Associations</h4>
