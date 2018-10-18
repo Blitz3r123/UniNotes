@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OOAD - Section 4 Lecture Notes</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../css/OOADSection1LectureStyle.css">
+	</head>
+	<body>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<div class="container">
+			<h1>Object Oriented Analysis and Design</h1>
+			<h4>Section 4: State Machines</h4>
+			<h4 style="text-align: center;">Lecture Notes</h4>
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="../index.html">Object Oriented Analysis and Design</a></li>
+					<li class="breadcrumb-item"><a href="index.html">Section 4</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Lecture Notes</li>
+				</ol>
+			</nav>
+
+			<div class="row">
+				<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<h4 id="section1">State Machines</h4>
+					<h5>State Machines before UML</h5>
+					<p class="lead">
+						Finite-state machines, FSM (often called finite state automation) have been widely used long before UML. <br>
+						They model the behaviour of an entity (computer program, digital circuits with memory, etc) that can be in one of a finite number of states <br>
+						The transitions ebtween the states are governed by external stimuli and are dependent on the current state.
+					</p>
+					<h5>Examples of FSM</h5>
+					<p class="lead">
+						Digital circuits with memory i.e. Registers implemented by flip-flops <br>
+						Minimisation of the combinational login used to drive the state changes is a very well established discipline <br>
+						Software Programs: <br>
+						<ul>
+							<li>Replication (fail-over, database replication, etc) are based on FSMs (proof of correctness of replication protocols explicitly refers to FSMs)</li>
+							<li>Consensu protocols in distributed systems <ul><li>
+								These guarantee for instance that all replicas are "on the same page", e.g. process change requests in the same order (known as "one copy serialisability")
+							</li></ul></li>
+						</ul>
+						Markov/semi-Markov Processes <br>
+						Petri Nets <br>
+						and many more.
+					</p>
+					<h4 id="section2">Moore and Mealy State Machines</h4>
+					<p class="lead">
+						Moore machine uses entry actions only <br>
+						<ul>
+							<li>An output is produced when the state changes <ul><li>
+								The output (action) depends on the state only, not on the input
+							</li></ul></li>
+						</ul> <br>
+						Mealy machines uses input actions only <br><ul><li>Output is produced based on the input and the state</li></ul> <br>
+						These two are functionally equivalent and mechanistic transformation exists from one to another.
+					</p>
+					<h4 id="section3">Mathematical Model of FSM</h4>
+					<h4 id="section4">State Machines in UML</h4>
+					<p class="lead">
+						Some model elements (classifiers to use the UML jargon) such as classes, components and subsystems, can have interesting dynamic behaviour <br>
+						State machines can be used to model such behaviour <br>
+						Every state machine exists in the contexxt of the particular model element that: 
+					</p>
+					<ul>
+						<li>Responds to events dispatched from outside of the element</li>
+						<li>Has a clear life history modelled as a progression of states, events and transitions</li>
+						<li>Its current behaviour depends on its past</li>
+					</ul>
+					<p class="lead">
+						A state machine diagram always contains exactly one state machine for one model element
+					</p>
+					<h4 id="section5">David Harel's Work</h4>
+					<p class="lead">
+						UML's state machines are based on the work by David Harel
+					</p>
+					<ul>
+						<li>Harel generalised the previous models of FSM</li>
+						<li>In UML 1.X state machines were called "state-charts", a term coined by Harel</li>
+						<li>Starting with UML 2.0 the term "state-charts" was replaced with state machines</li>
+					</ul>
+					<h4 id="section6">Basic State Machine Syntax</h4>
+					<img src="../../images/ooad4.1.png" alt="">
+					<p class="lead">
+						Every state machine should have an initial state which indicates the first state of the sequence <br>
+						Unless the states cycle endlessly, state machines should have a final state which terminates the sequence of transitions
+					</p>
+					<h4 id="section7">Kinds of State Machine</h4>
+					<p class="lead">
+						There are two different kinds of state machines: <br>
+						Behavourial state machines - define the behaviour of a model element e.g. the behaviour of class instances <br>
+						Protocol state machines - model the protocol of a classifier
+					</p>
+					<ul>
+						<li>The conditions under which operations of the classifier can be called</li>
+						<li>The ordering and results of operation calls</li>
+						<li>Can model the protocol of classifiers that have no behaviour (e.g. interfaces and ports)</li>
+						<li>The UML Syntax of behavioural and protocol state machines is very similar:
+						<ul>
+							<li>Protocol state machines don't have actions</li>
+							<li>Transitions are labelled differently</li>
+						</ul>
+						</li>
+					</ul>
+					<h4 id="section8">States</h4>
+					<p class="lead">
+						"A condition or situation during the life of an object during which it satisfies some condition, performs some activity or waits for some event" <br>
+						The state of an object at any point in time is determined by:
+						<ul>
+							<li>The values of its attributes</li>
+							<li>The relationships it has to other objects</li>
+							<li>The acitivities it is performing</li>
+						</ul>
+					</p>
+					<h4 id="section9">State Syntax</h4>
+					<img src="../../images/ooad4.2.png" alt="">
+					<p class="lead">
+						Actions are instantaneous and uninterruptable
+					</p>
+					<ul>
+						<li>Entry actions occur immediately on entry to the state</li>
+						<li>Exit actions occur immediately on leaving the state</li>
+					</ul>
+					<p class="lead">
+						Internal transitions occur within the state. They do not transition to a new state <br>
+						Acitivities take a finite amount of time and are interruptible
+					</p>
+					<h4 id="section10">Transitions</h4>
+					<img src="../../images/ooad4.3.png" alt="">
+					<p class="lead">Behavioural State Machine</p>
+					<img src="../../images/ooad4.4.png" alt="">
+					<p class="lead">Protocol State Machine</p>
+					<h4 id="section11">Connecting - the Junction Pseudo State</h4>
+					<img src="../../images/ooad4.5.png" alt="">
+					<p class="lead">
+						The junction pseudo state can:
+						<ul>
+							<li>connect transitions together (merge)</li>
+							<li>branch transitions</li>
+						</ul>
+					</p>
+					<img src="../../images/ooad4.6.png" alt="">
+					<p class="lead">
+						Each outgoing transition must have a mutually exclusive guard conditions
+						<ul>
+							<li>C1 and C2 must not overlap</li>
+						</ul>
+					</p>
+					<h4 id="section12">Branching - the Choice Pseudo State</h4>
+					<img src="../../images/ooad4.7.png" alt="">
+					<p class="lead">
+						The choice pseudo state directs its single incoming transition to one of its outgoing transitions <br>
+						Each outgoing transition must have a mutually exclusive guard condition
+					</p>
+					<h4 id="section13">Events</h4>
+					<img src="../../images/ooad4.8.png" alt="">
+					<p class="lead">
+						"The specification of a noteworthy occurence that has location in time and space" <br>
+						Events trigger transitions in state machines <br>
+						Events can be shown externally, on transitions, or internally within states (internal transitions) <br>
+						There are four event types: <br>
+						<ul>
+							<li>Call event</li>
+							<li>Signal event</li>
+							<li>Change event</li>
+							<li>Time event</li>
+						</ul>
+					</p>
+					<h5>Call Event</h5>
+					<img src="../../images/ooad4.9.png" alt="">
+					<p class="lead">
+						A call for an operation execution <br>
+						The event should have the same signature as an operation of the context class <br>
+						A sequence of actions may be specified for a call event - they may use attributes of the context class <br>
+						The return value must match the return type of the operation
+					</p>
+					<h4 id="section14">Signal Events</h4>
+					<img src="../../images/ooad4.10.png" alt="">
+					<p class="lead">
+						A signal is a package of information that is sent asynchronously between objects
+					</p>
+					<ul>
+						<li>The attributes carry the information</li>
+						<li>no operations</li>
+					</ul>
+					<h5>Receiving a Signal</h5>
+					<img src="../../images/ooad4.11.png" alt="">
+					<p class="lead">You may show a signal receipt: </p>
+					<ul>
+						<li>on a transition using a concave pentagon, or</li>
+						<li>as an internal transition state using standard notation</li>
+					</ul>
+					<h4 id="section15">Change Events</h4>
+					<img src="../../images/ooad4.12.png" alt="">
+					<p class="lead">
+						The action is performed when the Boolean expression transitions from false to true
+					</p>
+					<ul>
+						<li>The event is edge triggered on a false to true transition</li>
+						<li>The values in the Boolean expression must be constants, globals or attributes of the context class</li>
+					</ul>
+					<p class="lead">
+						A change event implies continually testing the condition whilst in the state
+					</p>
+					<h4 id="section16">Time Events</h4>
+					<img src="../../images/ooad4.13.png" alt="">
+					<p class="lead">
+						Time events occur when a time expression becomes true <br>
+						There are two keywords, after and when <br>
+						Elapsed time: after (3 months) <br>
+						Absolute time: when (date = 20/3/2000)
+					</p>
+					<h4 id="section17">State Machine vs Activity Diagrams</h4>
+					<p class="lead">
+						These two diagrams look similar, but are really quite different. Similarity of syntax is misleading!
+					</p>
+					<p class="lead">State-machines have: </p>
+					<ul>
+						<li>States: may be mapped to values of attributes, existence of links with objects of other classes. A state defines which events will be accepted, any other events will be ignored. A state machine remains in a state until a transition is successfully completed.</li>
+						<li>Transitions - are triggered by an explicit trigger, which is defined, and may have an action. Automatic transitions are possible, but they are not the norm.</li>
+						<li>A guard, when false, may block a transition</li>
+					</ul>
+					<p class="lead">Activity diagrams have nodes: actions, objects, control nodes</p>
+					<ul>
+						<li>Actions are pieces of computation. When processing is complete, a transition takes place to the next node. There is no need for an explicit trigger. Automatic transitions are the norm.</li>
+						<li>Conditions apply to control node (decision/merge and fork/join)</li>
+					</ul>
+					<p class="lead">The focus of diagrams is different:</p>
+					<ul>
+						<li>State-machines typically model the behaviour of an instance of a single classifier and defines how the state of the instance may change in response to any method defined for the classifier.</li>
+						<li>Activity diagrams are typically used to model:
+							<ul>
+								<li>Business processes in which different actors can participate. Instances of different classifiers may be involved in the process</li>
+								<li>The logic of a single method of a classifier</li>
+							</ul>
+						</li>
+						<li>We may use an acitivity diagram to model the "do" activity defined for a state-machine</li>
+					</ul>
+					<h4 id="section18">Composite States</h4>
+					<img src="../../images/ooad4.14.png" alt="">
+					<p class="lead">
+						Have one or more regions that each contain a nested submachine
+					</p>
+					<ul>
+						<li>Simple composite data <ul><li>
+							exactly one region
+						</li></ul></li>
+						<li>Orthogonal composite data <ul><li>
+							two or more regions
+						</li></ul></li>
+					</ul>
+					<p class="lead">
+						The final state terminates its enclosing region - all other regions continue to execute <br>
+						The terminate pseudo-state terminates the whole state machine <br>
+						Use the composition icon when the submachines are hidden
+					</p>
+					<h5>Simple Composite Tables</h5>
+					<img src="../../images/ooad4.15.png" alt="">
+					<p class="lead">
+						Contains a single region <br>
+						The nested states inherit the cancel transition from DialingISP
+					</p>
+					<h4 id="section19">Action Execution Order in SM</h4>
+					<p class="lead">
+						Every transition, except for internal transitions, causes exciting of a source state, and entering of the target state. These two stages, which may be composite, are designated as the main source and the main target of a transition respectively.
+					</p>
+					<h4 id="section20">Orthogonal Composite States</h4>
+					<p class="lead">
+						Has two or more regions <br>
+						When we enter the superstate, both submachines start executing concurrently - this is an implicit fork
+					</p>
+					<img src="../../ooad4.16.png" alt="">
+					<h4 id="section21">Submachine States</h4>
+					<img src="../../images/ooad4.17.png" alt="">
+					<p class="lead">
+						If we want to refer to this state machine in other state machiens, without cluttering the diagrams, then must use a submachine state <br>
+						Submachine states reference another state machine <br>
+						Submachine states are semantically equivalent to composite states
+					</p>
+					<h5>Submachine State Syntax</h5>
+					<img src="../../images/ooad4.18.png" alt="">
+					<p class="lead">A submachine state is equivalent to including a copy of the submachine in place of the submachine state</p>
+					<h5>Submachine Communication</h5>
+					<p class="lead">
+						We often need two sub machines to communicate <br>
+						Synchronous communication can be achieved by a join <br>
+						Asynchronous communication is achieved by one submachine setting a flag for another one to process in its own time
+					</p>
+					<img src="../../images/ooad4.19.png" alt="">
+					<h4 id="section22">Shallow History</h4>
+					<img src="../../images/ooad4.20.png" alt="">
+					<p class="lead">
+						Shallow history remembers the last sub-state at the same level as the shallow history pseudo state <br>
+						Next time the super state is entered there is an automatic transition to the remembered sub-state
+					</p>
+					<h4 id="section23">Deep History</h4>
+					<img src="../../images/ooad4.21.png" alt="">
+					<p class="lead">
+						Deep history remembers that last sub-state at the same level or lower than the deep history pseudo state
+					</p>
+				</div>
+				<div class="col-xl-3 col-lg-3 col-md-3 hidden-xs hidden-sm">
+					<div class="list-group">
+						<a href="#section1" class="list-group-item list-group-item-action">State Machines</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Moore and Mealy State Machines</a>
+						<a href="#section3" class="list-group-item list-group-item-action">Mathematical Model of FSM</a>
+						<a href="#section4" class="list-group-item list-group-item-action">State Machines in UML</a>
+						<a href="#section5" class="list-group-item list-group-item-action">David Harel's Work</a>
+						<a href="#section6" class="list-group-item list-group-item-action">Basic State Machine Syntax</a>
+						<a href="#section7" class="list-group-item list-group-item-action">Kinds of State Machines</a>
+						<a href="#section8" class="list-group-item list-group-item-action">States</a>
+						<a href="#section9" class="list-group-item list-group-item-action">State Syntax</a>
+						<a href="#section10" class="list-group-item list-group-item-action">Transitions</a>
+						<a href="#section11" class="list-group-item list-group-item-action">Connecting - the Junction Pseudo State</a>
+						<a href="#section12" class="list-group-item list-group-item-action">Branching - the Choice Pseudo State</a>
+						<a href="#section13" class="list-group-item list-group-item-action">Events</a>
+						<a href="#section14" class="list-group-item list-group-item-action">Signal Events</a>
+						<a href="#section15" class="list-group-item list-group-item-action">Change Events</a>
+						<a href="#section16" class="list-group-item list-group-item-action">Time Events</a>
+						<a href="#section17" class="list-group-item list-group-item-action">State Machine vs Activity Diagrams</a>
+						<a href="#section18" class="list-group-item list-group-item-action">Composite States</a>
+						<a href="#section19" class="list-group-item list-group-item-action">Action Executino Order in SM</a>
+						<a href="#section20" class="list-group-item list-group-item-action">Orthogonal Composite States</a>
+						<a href="#section21" class="list-group-item list-group-item-action">Submachine States</a>
+						<a href="#section22" class="list-group-item list-group-item-action">Shallow History</a>
+						<a href="#section23" class="list-group-item list-group-item-action">Deep History</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
