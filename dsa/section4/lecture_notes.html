@@ -27,40 +27,343 @@
 			<div class="row">
 				<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
 					<h4 id="section1">Learning Objectives</h4>
+					<p class="lead">
+						Understand and be able to use the data structure singly linked lists <br>
+						Be able to understand, apply and develop algorithms to handle singly linked lists. Including: <br>
+						<ul>
+							<li>Adding elements</li>
+							<li>Deleting elements</li>
+							<li>Traversing a list</li>
+						</ul>
+					</p>
 					<h4 id="section2">Introduction</h4>
+					<p class="lead">What is this?</p>
+					<p class="lead">
+						<img src="../../images/dsa4.1.png" alt="Picture" class="img-fluid">
+					</p>
+					<h5>Database Records</h5>
+					<p class="lead">
+						A record is a fixed collection of things of different types. <br>
+						Example: records at a mobile phone provider: <br>
+						<img src="../../images/dsa4.2.png" alt="" class="img-fluid">
+					</p>
+					<h5>Records as Objects</h5>
+					<p class="lead">
+						<code>
+							class Mobile { <br>
+							&emsp;public int clientID; <br>
+							&emsp;public String number; <br>
+							&emsp;public String name; <br>
+							&emsp;public Date startDate; <br>
+							&emsp;public int credit; <br>
+							&emsp;public char contract; <br>
+							&emsp;public boolean intl; <br>
+							&emsp;public int seconds; <br>
+							&emsp;... <br>
+							&emsp;public Mobile(){ <br>
+							&emsp;&emsp;clientID = c; number = nu; name = na; ... <br>
+							&emsp;} <br>
+							}
+						</code>
+					</p>
 					<h4 id="section3">Pointers To Records</h4>
+					<p class="lead">
+						In Java, variables cannot contain objects (record instances in this case), but pointers to them <br>
+						Every reference type can have value null, which refers to no object at all <br>
+						<code>
+							Mobile x = null; <br>
+						</code>
+						Several variables may refer to the same object: <br>
+						<code>
+							Mobile y = new Mobile(1234, "+44 7887 4444444", "Rupert", ...); <br>
+							Mobile z = y; <br>
+						</code>
+					</p>
+					<h5>Are two records equal?</h5>
+					<p class="lead">
+						Consider: <br>
+						<code>
+							Mobile x = new Mobile(1234, "+44 7887 4444444", "Rupert", ...); <br>
+							Mobile y = new Mobile(1234, "+44 7887 4444444", "Rupert", ...); <br>
+							Mobile z = x; <br>
+						</code>
+						<code>x == z</code> is <br>
+						<code>x == y</code> is <br>
+						x.compareTo(y), however, can be defined to return 0 to indicate that both objects contain the same values <br>
+					</p>
+					<h5>What would happen here?</h5>
+					<p class="lead">
+						Consider: <br>
+						<code>
+							Mobile x = new Mobile(1234, "+44 7887 4444444", "Rupert", ...); <br>
+							Mobile y = new Mobile(1234, "+44 7887 4444444", "Rupert", ...); <br>
+							Mobile z = x; <br>
+							z.name = "Anne"; <br>
+							y.clientID = 555; <br>
+						</code>
+						What are the values of: <br>
+						<code>
+							x.name <br>
+							y.name <br>
+							z.name <br>
+							x.clientID <br>
+							y.clientID <br>
+							z.clientID <br>
+						</code>
+					</p>
 					<h4 id="section4">What are links?</h4>
+					<p class="lead">
+						All object variables in Java are actually pointers <br>
+						A pointer is a link to some object, i.e.. a piece of memory: <br>
+						<ul>
+							<li>Links can be thought of as arrows, addresses or references</li>
+							<li>They point at an object that is somewhere in the system's memory</li>
+						</ul>
+						<img src="../../images/dsa4.3.png" alt="">
+					</p>
+					<h5>Pointers to an address</h5>
+					<p class="lead">
+						<img src="../../images/dsa4.4.png" alt=""> <br>
+						When you create and assign objects, the system allocates memory and assigns addresses <br>
+						<img src="../../images/dsa4.5.png" alt=""> <br>
+						memory address E1E42FB: <br>
+						New object of class Foo <br>
+						<img src="../../images/dsa4.6.png" alt=""> <br>
+						Creating a pointer to the same object at address E1E42FB
+					</p>
+					<h5>Pointers are links</h5>
+					<p class="lead">
+						<img src="../../images/dsa4.7.png" alt=""> <br>
+						In Java you don't need to worry about the address, just what you are point at. <br>
+						<img src="../../images/dsa4.8.png" alt=""> <br>
+					</p>
 					<h4 id="section5">Links in Java</h4>
+					<p class="lead">
+						All variables whose type is a class (or interface) of objects are actually pointers ("references") to an instance of such class (or to null if empty). <br>
+						<br>
+						This means that the same object can be assigned to different variables <br>
+						<br>
+						...and, importantly, the same object's methods and parameters can be accessed through different variables
+					</p>
 					<h4 id="section6">Singly Linked Lists</h4>
+					<p class="lead">
+						How do you remove a value from the middle of an array? <br>
+						How would you do it in real life, e.g. in a long written list? <br>
+						In real life, to add something at the middle of a long list what do you do?<br>
+						How would you do it with arrays?<br>
+						<br>
+						Singly linked lists use pointers are links to the next element in the list.
+					</p>
+					<h5>Nodes in singly linked lists</h5>
+					<p class="lead">
+						Each node contains a value and a pointer to the next node:
+						<img src="../../images/dsa4.9.png" alt="">
+					</p>
 					<h4 id="section7">A Node Implementation in a Singly Linked List</h4>
+					<p class="lead">
+						<code>
+							public class Node { <br>
+							&emsp;public int info; <br>
+							&emsp;public Node next; <br>
+							<br>
+							&emsp;public Node(int i, Node n){ <br>
+							&emsp;&emsp;info = i; next = n; <br>
+							&emsp;} <br>
+							<br>
+							&emsp;public Node(int i){ <br>
+							&emsp;&emsp;this(i, null);
+							&emsp;} <br>
+							}
+						</code>
+					</p>
 					<h4 id="section8">Pointers to the Head and Tail</h4>
+					<p class="lead">
+						Adding elements at the tail is faster if we keep a pointer to the last element (if any). We define a new class to hold the head and tail pointers: <br>
+						<img src="../../images/dsa4.10.png" alt="">
+					</p>
 					<h4 id="section9">The Singly Linked List Class</h4>
+					<p class="lead">
+						<code>
+							public class SLList { <br>
+							&emsp;private Node head = null; <br>
+							&emsp;private Node tail = null; <br>
+							<br>
+							&emsp;public boolean isEmpty(){ <br>
+							&emsp;&emsp;return head == null; <br>
+							&emsp;} <br>
+							}
+							<br>
+							&emsp;public void addToHead(int el) {...} <br>
+							<br>
+							&emsp;public void addToTail(int el) {...} <br>
+							<br>
+							&emsp;public int deleteFromHead() {...} <br>
+							<br>
+						</code>
+					</p>
+					<h5>Special Cases</h5>
+					<p class="lead">
+						An empty list: <br>
+						<img src="../../images/dsa4.11.png" alt=""> <br>
+						A list with one element: <br>
+						<img src="../../images/dsa4.12.png" alt="">
+					</p>
+					<h5>What shouldn't happen in singly linked lists</h5>
+					<p class="lead">
+						<ul>
+							<li>Loops</li>
+							<li>Errors with pointers
+								<ul>
+									<li>e.g. tail does not point to head.next. ... .next</li>
+								</ul>
+							</li>
+							<li>Tail node with non-null pointer</li>
+							<li>Non-tail node with null pointer</li>
+						</ul>
+					</p>
 					<h4 id="section10">Operations in Singly Linked Lists</h4>
+					<p class="lead">
+						Adding an element at the head <br>
+						Adding an element at the tail <br>
+						Deleting the head element <br>
+						Deleting the tail element
+					</p>
 					<h4 id="section11">Adding an Element at the Head</h4>
+					<p class="lead">
+						There are two cases: <br>
+						<ul>
+							<li>The list contains at least one element (so the tail stays the same)</li>
+							<li>The list is empty (head = tail = null) (we need to set the tail)</li>
+						</ul>
+						<code>
+							public void addToHead(int el){ <br>
+							&emsp;head = new Node(el, head); <br>
+							&emsp;if(tail == null) { <br>
+							&emsp;&emsp;tail = head; <br>
+							&emsp;} <br>
+							}
+						</code>
+					</p>
 					<h4 id="section12">Adding an Element at the Tail</h4>
+					<p class="lead">
+						Two cases again: <br>
+						<ul>
+							<li>If the list is empty, we need to set the head</li>
+							<li>Otherwise, we need to set the pointer of the old tail</li>
+						</ul>
+						<code>
+							public void addToTail(int el) { <br>
+							&emsp;if(! isEmpty()){ <br>
+							&emsp;&emsp;tail.next = new Node(el); <br>
+							&emsp;&emsp;tail = tail.next; <br>
+							&emsp;} <br>
+							&emsp;else{ <br>
+							&emsp;&emsp;head = tail = new Node(el); <br>
+							&emsp;} <br>
+						</code>
+					</p>
+					<h5>Deleting the head element</h5>
+					<p class="lead">Just move the head pointer:</p>
+					<img src="../../images/dsa4.13.png" alt="">
+					<br>
+					<p class="lead">
+						If the list has more than one element, change the head. Otherwise, make the list empty: <br>
+						<code>
+							public int deleteFromHead() { <br>
+							&emsp;int el = head.info; <br>
+							&emsp;if(head == tail){ //one or no elements<br>
+							&emsp;&emsp;head = tail = null; <br>
+							&emsp;} <br>
+							&emsp;else { <br>
+							&emsp;&emsp;head = head.next; <br>
+							&emsp;} <br>
+							&emsp;return el; <br>
+							}
+						</code>
+					</p>
+					<h5>Delete the last element</h5>
+					<p class="lead">
+						We need to set tail to the second last node but it's more easily said than done: <br>
+						<code>
+							if(head == tail) // one or more elements <br>
+							&emsp;head = tail = null; <br>
+							else
+							&emsp;aux = sll.head <br>
+							&emsp;while(aux.next != tail) <br>
+							&emsp;&emsp;aux = aux.next <br>
+							&emsp;aux.next = null <br>
+							&emsp;sll.tail = aux <br>
+						</code>
+					</p>
+					<h5>Traversing a list</h5>
+					<img src="../../images/4.14.png" alt=""><br>
+					<p class="lead">
+						<code>
+							Function printList() <br>
+							&emsp;aux = sll.head <br>
+							&emsp;while(aux != null) <br>
+							&emsp;&emsp;print aux.info <br>
+							&emsp;&emsp;aux = aux.next <br>
+						</code>
+						...so to traverse the list, iteratively (or recursively!) evaluate the rest of the list (i.e., next)
+					</p>
 					<h4 id="section13">Applications of Singly Linked Lists</h4>
+					<p class="lead">
+						A list requires O(n) space <br>
+						The operations we have defined each take O(1) time <br>
+						Lists can represent the following ADTs: <br>
+						<ul>
+							<li>Stack uses: pop and push</li>
+							<li>Queue uses: enqueue and dequeue</li>
+						</ul>
+						Lists may also be used directly in many algorithms <br>
+						Important high-level programming languages strongly rely on linked lists
+					</p>
 					<h4 id="section14">Other Uses</h4>
+					<p class="lead">
+						It is possible to implement priority queues, stacks, queues and heaps using linked lists. However, is this efficient? <br>
+						<br>
+						Let us have a closer look: <br>
+						<ul>
+							<li>priority queues: inserting a new element in a sorted singly linked list takes O(?)</li>
+							<li>heaps: searching a parent or child in a single linked list is O(?)</li>
+						</ul>
+					</p>
 					<h4 id="section15">Some Observations</h4>
+					<p class="lead">
+						Extensible arrays efficiently implement the stack ADT, as well as the array operations, overhead for additional space <br>
+						Singly linked lists: <br>
+						<ul>
+							<li>efficiently implement the stack and queue ADTs, and have many other uses</li>
+							<li>can only move in one direction, accessing elements in the middle or rear part is difficult</li>
+							<li>incur overhead for the pointers</li>
+						</ul>
+					</p>
 					<h4 id="section16">Reading</h4>
+					<p class="lead">
+						Weiss: Chapter 15 (Stacks and Queues), and section 16.1 and 16.2 (Linked lists) <br>
+						Drozdek: Sections 1.4 (Java and Pointers), 3.1 (Singly Linked Lists), 4.1 (Stacks) and 4.2 (Queues) <br>
+						Next section: Circular lists and Doubly Linked Lists
+					</p>
 				</div>
 				<div class="col-xl-3 col-lg-3 col-md-3 hidden-xs hidden-sm">
 					<div class="list-group">
 						<a href="#section1" class="list-group-item list-group-item-action">Learning Objectives</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Introduction</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Pointers to Records</a>
-						<a href="#section1" class="list-group-item list-group-item-action">What are Links?</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Links in Java</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Singly Linked Lists</a>
-						<a href="#section1" class="list-group-item list-group-item-action">A Node Implementation in a Singly Linked List</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Pointers to the Head and Tail</a>
-						<a href="#section1" class="list-group-item list-group-item-action">The Singly Linked List Class</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Operations in Singly Linked Lists</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Adding an Element at the Head</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Adding an Element at the Tail</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Applications of Singly Liked Lists</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Other Uses</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Some Observations</a>
-						<a href="#section1" class="list-group-item list-group-item-action">Reading</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Introduction</a>
+						<a href="#section3" class="list-group-item list-group-item-action">Pointers to Records</a>
+						<a href="#section4" class="list-group-item list-group-item-action">What are Links?</a>
+						<a href="#section5" class="list-group-item list-group-item-action">Links in Java</a>
+						<a href="#section6" class="list-group-item list-group-item-action">Singly Linked Lists</a>
+						<a href="#section7" class="list-group-item list-group-item-action">A Node Implementation in a Singly Linked List</a>
+						<a href="#section8" class="list-group-item list-group-item-action">Pointers to the Head and Tail</a>
+						<a href="#section9" class="list-group-item list-group-item-action">The Singly Linked List Class</a>
+						<a href="#section10" class="list-group-item list-group-item-action">Operations in Singly Linked Lists</a>
+						<a href="#section11" class="list-group-item list-group-item-action">Adding an Element at the Head</a>
+						<a href="#section12" class="list-group-item list-group-item-action">Adding an Element at the Tail</a>
+						<a href="#section13" class="list-group-item list-group-item-action">Applications of Singly Liked Lists</a>
+						<a href="#section14" class="list-group-item list-group-item-action">Other Uses</a>
+						<a href="#section15" class="list-group-item list-group-item-action">Some Observations</a>
+						<a href="#section16" class="list-group-item list-group-item-action">Reading</a>
 					</div>
 				</div>
 			</div>
