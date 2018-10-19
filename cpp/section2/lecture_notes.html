@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CPP - Section 2 Lecture Notes</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../css/cppSection1LectureStyle.css">
+	</head>
+	<body>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<div class="container">
+			<h1>Programming in C++</h1>
+			<h4>Section 2: Sequential Containers</h4>
+			<h4 style="text-align: center;">Lecture Notes</h4>
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="../index.html">Programming in C++</a></li>
+					<li class="breadcrumb-item"><a href="index.html">Section 2</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Lecture Notes</li>
+				</ol>
+			</nav>
+
+			<div class="row">
+				<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<h4 id="section1">Overview</h4>
+					<h5>This session:</h5>
+					<p class="lead">
+						We will be writing some programs that operate on batches of data, which allows us to explore: 
+					</p>
+					<ul>
+						<li>a bit more about streams</li>
+						<li>the standard idiom for looping to the end of an input stream</li>
+						<li>manipulators</li>
+						<li>vectors from the standard template library</li>
+						<li>introduction to containers</li>
+					</ul>
+					<h4 id="section2">Calculating Statistics from a List of Numbers</h4>
+					<p class="lead">
+						Task: read in a list of numbers and print their average. The overall structure of our program will be:
+						<code>
+							#include &lt;iostream&gt; <br>
+							#include &lt;iomanip&gt; <br>
+							<br>
+							using namespace std; <br>
+							<br>
+							int main() { <br>
+							&emsp;&emsp;&emsp;&emsp;// ... read in data ...
+							&emsp;&emsp;&emsp;&emsp;// ... print results ...
+							&emsp;&emsp;&emsp;&emsp; return 0;
+							} <br>
+						</code>
+					</p>
+					<h5>Reading the Data</h5>
+					<p class="lead">
+						The first part is to read all the numbers and record their count and sum:
+						<code>
+							cout << "Please enter a series of numbers \n"; <br>
+							<br>
+							//the number and total of values read <br>
+							int count = 0; <br>
+							double sum = 0; <br>
+							<br>
+							// read values from standard input <br>
+							double x; // a variable for reading into <br>
+							while (cin >> x) { <br>
+							&emsp;&emsp;&emsp;&emsp;++count; <br>
+							&emsp;&emsp;&emsp;&emsp;sum += x; <br>
+							} <br>
+						</code>
+					</p>
+					<h4 id="section3">Library Details: Testing for end-of-input</h4>
+					<p class="lead">
+						We have already seen that the >> operator returns the input stream, in statements like: <br>
+						<code>
+							cin >> x >> y >> z; <br>
+						</code>
+					</p>
+					<p class="lead">
+						But the result of >> can also be used in a test, as in the common idiom for reading a series of things and testing for the end of the input: <br>
+						<code>
+							while (cin >> x) { <br>
+							&emsp;&emsp;&emsp;&emsp;// ... do something with x
+							} <br>
+						</code>
+					</p>
+					<p class="lead">
+						Testing a stream yields true if the last operation on the stream succedded, and false if it didn't. (You can indicate end of input on the console by typing Control-Z Return on Windows, or Control-D on Unix.) <br>
+					</p>
+					<h4 id="section4">Language Details: i++ vs ++i</h4>
+					<p class="lead">
+						The following statements all increase an int variable <code>i</code> by one: <br>
+						<code>
+							i = i + 1; <br>
+							i += 1; <br>
+							i++; <br>
+							++i; <br>
+						</code>
+					</p>
+					<p class="lead">
+						The difference between the last two is only seen when the value of the expression is used: <br>
+						<code>
+							int i = 5; <br>
+							int j = ++i; // j is set to 6; i is now 6; <br>
+							int k = i++; // k is also set to 6; i is now 7; <br>
+						</code>
+					</p>
+					<p class="lead">
+						<code>i++</code> returns the value before incrementing (so the old value has to be saved somewhere, which could be expensive with some types) <br>
+						<code>++i</code> returns the value after incrementing (simpler)
+					</p>
+					<h5>Printing The Results</h5>
+					<p class="lead">
+						Finally, we want to print the results: <br>
+						<code>
+							cout << count << " numbers \n"; <br>
+							if (count > 0){ <br>
+							&emsp;&emsp;&emsp;&emsp;cout << "average = " << sum/count << 'n'; <br>
+							} <br>
+						</code>
+					</p>
+					<p class="lead">
+						By default, floating point numbers are printed with up to 5 significant figures, but we can change that: <br>
+						<code>
+							cout << "average = " << setprecision(3) << sum/count << '\n'; <br>
+						</code>
+					</p>
+					<h4 id="section5">Library Details: Manipulators</h4>
+					<p class="lead">
+						<code>setprecision(3)</code> is an example of a stream manipulator (from the &lt;iomanip&gt; system header), like flush or endl: a special kind of object with an overloading of the << operator than changes the state of the stream <br>
+						This manipulator is used to adjust formatting: <br>
+						<code>cout << setprecision(3)</code>
+					</p>
+					<p class="lead">
+						doesn't do any output, but it sets the precision for any following output. <br>
+						<code>
+							cout << "average = " << setprecision(3) << x << setprecision(5) << y; <br>
+						</code>
+					</p>
+					<p class="lead">
+						Other manipulators set base, paddings, etc.
+					</p>
+					<h5>Cleaning Up</h5>
+					<p class="lead">
+						We have used <code>setprecision()</code> to set the maximum number of significant figures to what we want <br>
+						Nothing else is happening in this program, but in general it would be polite to set the precision back to what it was before. <br>
+						We can get the current precision using <code>cout.precision()</code> <br>
+						This yields our final version: <br>
+						<code>
+							int prec = cout.precision(); <br>
+							cout << "average = " << setprecision(3) << sum/count << setprecision(prec) << '\n';
+						</code>
+					</p>
+					<h5>Breaking the Input into Words</h5>
+					<p class="lead">An example reading strings:</p><br>
+					<p class="lead">
+						<code>
+							#include &lt;iostream&gt; <br>
+							#include &lt;iomanip&gt; <br>
+							<br>
+							using namespace std; <br>
+							<br>
+							int main() { <br>
+							&emsp;&emsp;&emsp;&emsp;cout << "Please enter a series of numbers \n"; <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;//the number and total of values read <br>
+							&emsp;&emsp;&emsp;&emsp;int count = 0; <br>
+							&emsp;&emsp;&emsp;&emsp;double sum = 0; <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;//read values from standard input <br>
+							&emsp;&emsp;&emsp;&emsp;double x; // a variable for reading into <br>
+							&emsp;&emsp;&emsp;&emsp;while( cin >> x) { <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;++count; <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;sum += x; <br>
+							&emsp;&emsp;&emsp;&emsp;} <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;//output results <br>
+							&emsp;&emsp;&emsp;&emsp;cout << count << " numbers\n"; <br>
+							&emsp;&emsp;&emsp;&emsp;if (count > 0) { <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;int old_prec = cout.precision(); <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cout << "average = " << setprecision(3) << sum/count << setprecision(old_prec) << 'n'; <br>
+							&emsp;&emsp;&emsp;&emsp;} <br>
+							&emsp;&emsp;&emsp;&emsp;return 0; <br>
+							} <br>
+						</code>
+					</p>
+					<p class="lead">
+						<code>
+							#include &lt;string&gt; <br>
+							#include &lt;iostream&gt; <br>
+							<br>
+							using namespace std; <br>
+							<br>
+							int main() { <br>
+							&emsp;&emsp;&emsp;&emsp;string s; <br>
+							&emsp;&emsp;&emsp;&emsp;while( cin >> s ) <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;cout << s << '\n'; <br>
+							&emsp;&emsp;&emsp;&emsp;return 0; <br>
+							} <br>
+						</code>
+						Recall that the >> operator on strings reads words.
+					</p>
+					<h4 id="section6">Example: Computing Medians</h4>
+					<h5>Calculating a Different Statistic</h5>
+					<p class="lead">
+						Task: read in a list of numbers and print their median <br>
+						The median of a collection of numbers is in the "middle" value when they are arranged in order: <br>
+						1  3  3  7  10  >11<  11  13  14  15  15 <br>
+						However, the input data my be in any order. <br>
+						<ul>
+							<li>Unlike computing the average, to compute the median we will need to store all the numbers until the end of the program. WE shall use a vector to do this.</li>
+							<li>Then we need to ararge the values in order. We shall use the library function sort.</li>
+							<li>The the median will be the middle value in the vector.</li>
+						</ul>
+					</p>
+					<h5>Outline</h5>
+					<p class="lead">The overall structure of our program will be: </p>
+					<p class="lead">
+						<code>
+							#include &lt;iostream&gt; <br>
+							#include &lt;vector&gt; <br>
+							#include &lt;algorithm&gt; <br>
+							<br>
+							using namespace std; <br>
+							<br>
+							int main() { <br>
+							&emsp;&emsp;&emsp;&emsp;// ... read and store the data ... <br>
+							&emsp;&emsp;&emsp;&emsp;// ... sort the data ... <br>
+							&emsp;&emsp;&emsp;&emsp;// ... print the middle value ... <br>
+							&emsp;&emsp;&emsp;&emsp;return 0; <br>
+							} <br>	
+						</code>
+					</p>
+					<h4 id="section7">Vectors</h4>
+					<p class="lead">
+						<code>
+							#include &lt;vectors&gt; <br>
+						</code>
+						C++ has arrays, but we will use vectors instead (a container like ArrayList in Java, except that a variable of vector type holds an object, not a reference): <br>
+						<code>
+							vector&lt;int&gt; vi; // empty vector of ints <br>
+							vector&lt;string&gt; vs; // empty vector of strings <br>
+						</code>
+						Vectors can also be extended: <br>
+						<code>
+							vs.push_back(s);<br>
+						</code>
+						The current length of vs is vs.size() <br>
+						Vectors can be accessed just like arrays (indices 0...size() - 1): <br>
+						<code>
+							vi[1] = x; <br>
+							vi[2] = vi[1] + 3; <br>
+						</code>
+					</p>
+					<h5>Syntax Seems Simple but the Meaning is Not...</h5>
+					<p class="lead">
+						Expression "vi[1]" in Java would have to be written as "vi.get(1)", where vi would have been declared instead as a reference to an ArrayList container. <br>
+						<ul>
+							<li>Thanks to operator overloading C++ allows us to type less</li>
+							<li>It also allows us to keep the syntax of arrays that we're familiar with and treat vectors as if they're advanced arrays (that we can extend/shorten).</li>
+							<li>But this comes at a price - the code is not as clear now as it was in Java. In Java it's obvious we're calling a function while in C++ it is not so obvious - one has to rememebr that every use of an operator is actually a function call in C++!</li>
+							<li>So ci[1] is actually vi.operator[] (1)</li>
+						</ul>
+					</p>
+					<h5>Reading the Data into a Vector</h5>
+					<p class="lead">
+						We start by reading all the numbers and storing them in a vector: <br>
+						<code>
+							cout << "Please enter a series of numbers\n"; <br>	
+							<br>
+							// read numbers from the standard input <br>
+							//and store them in a vector <br>
+							vector&lt;double&gt; v; <br>
+							double x; <br>
+							while (cin >> x) <br>
+							&emsp;&emsp;&emsp;&emsp;v.push_back(x); <br>
+						</code>
+						We don't need a seperate variable to count them: we can use v.size(). 
+					</p>
+					<h5>Find the Median: Outline</h5>
+					<p class="lead">
+						<ul>
+							<li>Only a non-empty vector can have a median.</li>
+							<li>First, we need to sort the vector.</li>
+						</ul>
+					</p>
+					<p class="lead">
+						<code>
+							//compute and output results <br>
+							unsigned n = v.size(); <br>
+							cout << n << " numbers\n"; <br>
+							if (n > 0) { <br>
+							&emsp;&emsp;&emsp;&emsp;//sort the whole vector <br>
+							&emsp;&emsp;&emsp;&emsp;sort(v.begin(), v.end()); <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;//... find the middle value <br>
+							} <br>
+						</code>
+					</p>
+					<h4 id="section8">Language Details: Unsigned Types</h4>
+					<p class="lead">
+						C++ has signed and unsigned integral types of various size: <br>
+						<table class="table">
+							<tr>
+								<th>Signed</th>
+								<th>?</th>
+								<th>Unsigned</th>
+							</tr>
+							<tr>
+								<td>signed char</td>
+								<td>char</td>
+								<td>unsigned char</td>
+							</tr>
+							<tr>
+								<td>short</td>
+								<td></td>
+								<td>unsigned short</td>
+							</tr>
+							<tr>
+								<td>int</td>
+								<td></td>
+								<td>unsigned int</td>
+							</tr>
+							<tr>
+								<td>long</td>
+								<td></td>
+								<td>unsigned long</td>
+							</tr>
+							<tr>
+								<td>long long</td>
+								<td></td>
+								<td>unsigned long long</td>
+							</tr>
+						</table>
+						<ul>
+							<li>Unlike in Java, the sizes are not defined by the standard (but they are non-decreasing). </li>
+							<li>char may be either a signed or unsigned type, whichever is more efficient on this architecture.</li>
+							<li>Unsigned types cannot be negative: if i is of unsigned type, i < 0 can never be true.</li>
+						</ul>
+					</p>
+					<h5>Unsigned Typyes: Caution</h5>
+					<p class="lead">
+						Unsigned integers will silently underflow:  <br>
+						<code>
+							unsigned i = 0; <br>
+							i -= 1; <br>
+						</code>
+						will not fail - it will set i to a very large positive number <br>
+						<br>
+						If an operation ivolves both a signed and unsigned type, it will silently convert the signed type to unsigned first, so in <br>
+						<code>
+							int i = -5; <br>
+							unsigned j = 1; <br>
+							if (i < j) <br>
+						</code>
+						the last test will fail, because -5 will be silently converted to a very large positive number.
+					</p>
+					<h5>The Type Of Size</h5>
+					<p class="lead">
+						<ul>
+							<li>Containers cannot have negative size</li>
+							<li>The return type of the size() member function is an unsigned type, but which unsigned type is implementation dependent.</li>
+							<li>The portable name of its type is vector&lt;double&gt;::size_type</li>
+							<li>Here :: selects a static attribute of the type vector&lt;double&gt;. (This is a different use of :: from namespace qualification, as in std::vector</li>
+							<li>We can use this as the type of the variable n:</li>
+							<code>
+								vector&lt;double&gt;::size_type n = v.size();
+							</code>
+						</ul>
+					</p>
+					<h4 id="section9">Library Details: Sort, Begin, End</h4>
+					<p class="lead">
+						<code>
+							sort(v.begin(), v.end()); <br>
+						</code>
+						<ul>
+							<li>To sort a vector, we use the sort function, declared in the &lt;algorithm&gt; system header.</li>
+							<li>Instead of a container, sort takes two positions or iterators (which will be explored in section 4)</li>
+							<li>These positions should be in the same container, with the first before the second (or havoc will ensue).</li>
+							<li>The vector class has member functions begin() and end(), yielding positions as the start and end of the vector.</li>
+							<li>So the above statement sorts the whole vector - a common idiom, but using iterators is more general.</li>
+						</ul>
+					</p>
+					<h5>Computing the Median</h5>
+					<p class="lead">We use this plan to compute the median of the sorted array.</p>
+					<p class="lead">
+						<code>
+							//find the middle value <br>
+							vector&lt;double&gt;::size_type middle = n/2; <br>
+							double median; <br>
+							if (n%2 == 1) //size is odd <br>
+							&emsp;&emsp;&emsp;&emsp;median = v[middle]; <br>
+							else //size is even <br>
+							&emsp;&emsp;&emsp;&emsp;median = (v[middle-1] + v[middle])/2;
+							cout << "median = " << median << '\n';
+						</code>
+						and our program is complete.
+					</p>
+					<h5>Type Definitions</h5>
+					<p class="lead">
+						A typedef declaration allows us to introduce a new name for a type: <br>
+						<code>
+							typedef vector&lt;double&gt;::size_type vec_size; <br>
+						</code>
+						This defines a new type name vec_size that is equivalent to the longer name. One use is to avoid repeating a long type name: <br>
+						<code>
+							vec_size n = v.size(); <br>
+							// ... <br>
+							vec_size middle = n/2;
+						</code>
+					</p>
+					<h5>Vectors: Further Points</h5>
+					<ul>
+						<li>
+							A vector variable contains a whole vector: <br>
+							<code>
+								vector&lt;int&gt; v1 = v; // copy the vector <br>
+								sort(v.begin(), v.end()); <br>
+							</code>
+							results in v being sorted, but v1 still containing a copy of the original unsorted v.
+						</li>
+						<li>When indexing v[i], the index i is not checked: if it is out of range, the program may crash or continue with corrupted data</li>
+						<li>Other vector member functions: <br>
+							back() return the last element of the vector <br>
+							pop_back() removes the last element of the vector
+						</li>
+					</ul>
+					<h5>Another Container: Deque</h5>
+					<p class="lead">
+						Deques (double-ended queues) can be created in a similar way: <br>
+						<code>deque&lt;int&gt; d; // an empty deque</code>
+						Deques support indexing with [], and these member functions: <br>
+						size() the number of elements in the deque
+					</p>
+					<p class="lead">
+						<code>
+							#include &lt;iostream&gt; <br>
+							#include &lt;vector&gt; <br>
+							#include &lt;algorithm&gt; <br>
+							<br>
+							using namespace std; <br>
+							<br>
+							int main() { <br>
+							&emsp;&emsp;&emsp;&emsp;cout << "Please enter a series of numbers\n"; <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;// read numbers from the standard input <br>
+							&emsp;&emsp;&emsp;&emsp;// and store them in a vector <br>
+							&emsp;&emsp;&emsp;&emsp;vector&lt;double&gt; v;<br>
+							&emsp;&emsp;&emsp;&emsp;double x; <br>
+							&emsp;&emsp;&emsp;&emsp;while (cin >> x) <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;v.push_back(x);<br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;//compute and output Results <br>
+							&emsp;&emsp;&emsp;&emsp;typedef vector&lt;double&gt;::size_type vec_size; <br>
+							&emsp;&emsp;&emsp;&emsp;vec_size n = v.size(); <br>
+							&emsp;&emsp;&emsp;&emsp;cout << n << " numbers\n"; <br>
+							&emsp;&emsp;&emsp;&emsp;if(n > 0){ <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;// sort the whole vector <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;sort(v.begin(), v.end()); <br>
+							<br>
+							&emsp;&emsp;&emsp;&emsp;// find the middle value <br>
+							&emsp;&emsp;&emsp;&emsp;vec_size middle = n/2; <br>
+							&emsp;&emsp;&emsp;&emsp;double median; <br>
+							&emsp;&emsp;&emsp;&emsp;if (n%2 == 1) // size is odd <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;median = v[middle]; <br>
+							&emsp;&emsp;&emsp;&emsp;else // size is even <br>
+							&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;median = (v[middle-1] + v[middle])/2; <br>
+							&emsp;&emsp;&emsp;&emsp;cout << "median = " << median << "\n"; <br>
+							&emsp;&emsp;&emsp;&emsp;} <br>
+							&emsp;&emsp;&emsp;&emsp;return 0; <br>
+							} <br>
+						</code>
+					</p>
+					<p class="lead">
+						push_back(x) add x to the back of the deque <br>
+						back() returns the last element of the deque <br>
+						push_front(x) add x to the front of the deque <br>
+						front() returns the first element of the deque <br>
+						pop_front() removes the first element of the deque <br>
+						There are common names with vector, but no inheritance. 
+					</p>
+					<h4 id="section10">Exercises</h4>
+					<ol>
+						<li>Modify the median program so that it also computes the average from the stored vector of numbers, instead of doing it while reading the numbers.</li>
+						<li>A common scoring method in several performance competitions is to take a series of scores, ignore the highest and lowest, and average the rest. Write a program that does thsi by reading all the values into a vector and sorting it.</li>
+						<li>Write a program that reads some text from the standard input and just prints out the number of words in the input. (You can use the fact that << operator on strings reads a single word.)</li>
+						<li>Write a program that reads some text from the standard input and then prints out the longest word in the input. (You shouldn’t need to retain all the words to do this.)</li>
+						<li>Write a program that reads some text from the standard input and then prints all the words in the reverse order, one per line. (You will need to store all the words in a container.)</li>
+						<li>(optional extra challenge) The scoring program suggested in question 2 uses O(n) space (for the vector), and takes O(n log n) time (for the sort). Can you think of an implementation that takes O(1) space and O(n) time?</li>
+					</ol>
+				</div>
+				<div class="col-xl-3 col-lg-3 col-md-3 hidden-xs hidden-sm">
+					<div class="list-group">
+						<a href="#section1" class="list-group-item list-group-item-action">Overview</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Calculating Statistics from a List of Numbers</a>
+						<a href="#section3" class="list-group-item list-group-item-action">Library Details: Testing for end-of-input</a>
+						<a href="#section4" class="list-group-item list-group-item-action">Language Details: i++ vs ++i</a>
+						<a href="#section5" class="list-group-item list-group-item-action">Library Details: Manipulators</a>
+						<a href="#section6" class="list-group-item list-group-item-action">Example: Computing Medians</a>
+						<a href="#section7" class="list-group-item list-group-item-action">Vectors</a>
+						<a href="#section8" class="list-group-item list-group-item-action">Language Details: Unsigned Types</a>
+						<a href="#section9" class="list-group-item list-group-item-action">Library Details: Sort, Begin, End</a>
+						<a href="#section10" class="list-group-item list-group-item-action">Exercises</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
