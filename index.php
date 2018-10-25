@@ -53,6 +53,13 @@
 							<li class="list-group-item">Quiz<span class="badge badge-pill badge-warning">In Progress</span></li>
 						</ul>
 						</li>
+						<li class="list-group-item">
+						Section 5 <span class="badge badge-pill badge-warning">In Progress</span>
+						<ul class="list-group">
+							<li class="list-group-item">Lecture Notes <span class="badge badge-pill badge-warning">In Progress</span></li>
+							<li class="list-group-item">Quiz<span class="badge badge-pill badge-warning">In Progress</span></li>
+						</ul>
+						</li>
 					</ul>
 				</li>
 				<li class="list-group-item">
