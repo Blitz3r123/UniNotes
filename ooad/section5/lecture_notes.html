@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OOAD - Section 5 Lecture Notes</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="../../css/OOADSection1LectureStyle.css">
+	</head>
+	<body>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<div class="container">
+			<h1>Object Oriented Analysis and Design</h1>
+			<h4>Section 5: Design Patterns</h4>
+			<h4 style="text-align: center;">Lecture Notes</h4>
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="../index.html">Object Oriented Analysis and Design</a></li>
+					<li class="breadcrumb-item"><a href="index.html">Section 5</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Lecture Notes</li>
+				</ol>
+			</nav>
+
+			<div class="row">
+				<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<h4 id="section1">Design Patterns</h4>
+					<h4 id="section2">OO Design is a form of Engineering</h4>
+					<h4 id="section3">Motivation and Concept</h4>
+					<h4 id="section4">A Design Pattern...</h4>
+					<h4 id="section5">Antipatterns</h4>
+					<h4 id="section6">Design Patterns: Four Basic Parts</h4>
+					<h4 id="section7">Design Pattern Goals</h4>
+					<h4 id="section8">Benefits of Patterns</h4>
+					<h4 id="section9">Design Patterns Classification</h4>
+					<h4 id="section10">Modified UML/OMT Notation</h4>
+					<h4 id="section11">Observer</h4>
+					<h4 id="section12">Composite</h4>
+					<h4 id="section13">Strategy</h4>
+					<h4 id="section14">Decorator</h4>
+					<h4 id="section15">Abstract Factory</h4>
+					<h4 id="section16">Adapter</h4>
+					<h4 id="section17">Bridge</h4>
+					<h4 id="section18">Facade</h4>
+					<h4 id="section19">Proxy</h4>
+					<h4 id="section20">Chain of Responsibility</h4>
+					<h4 id="section21">Mediator</h4>
+					<h4 id="section22">Visitor</h4>
+					<h4 id="section23">Interactive Systems</h4>
+					<h4 id="section24">Solution: Encapsulate Each Request</h4>
+					<h4 id="section25">Command</h4>
+					<h4 id="section26">Iterator</h4>
+					<h4 id="section27">How to Recognise Patterns</h4>
+					<h4 id="section28">Observations</h4>
+					<h4 id="section29">Summary</h4>
+				</div>
+				<div class="col-xl-3 col-lg-3 col-md-3 hidden-xs hidden-sm">
+					<div class="list-group">
+						<a href="#section" class="list-group-item list-group-item-action">Design Patterns</a>
+						<a href="#section" class="list-group-item list-group-item-action">OO Design is a form of Engineering</a>
+						<a href="#section" class="list-group-item list-group-item-action">Motivation and Concept</a>
+						<a href="#section" class="list-group-item list-group-item-action">A Design Pattern...</a>
+						<a href="#section" class="list-group-item list-group-item-action">Antipatterns</a>
+						<a href="#section" class="list-group-item list-group-item-action">Design Patterns: Four Basic Parts</a>
+						<a href="#section" class="list-group-item list-group-item-action">Design Pattern Goals</a>
+						<a href="#section" class="list-group-item list-group-item-action">Benefits of Patterns</a>
+						<a href="#section" class="list-group-item list-group-item-action">Design Patterns Classification</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Modified UML/OMT Notation</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Observer</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Composite</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Strategy</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Decorator</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Abstract Factory</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Adapter</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Bridge</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Facade</a>
+						<a href="#section1" class="list-group-item list-group-item-action">Proxy</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Chain of Responsibility</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Mediator</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Visitor</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Interactive Systems</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Solution: Encapsulate Each Request</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Command</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Iterator</a>
+						<a href="#section2" class="list-group-item list-group-item-action">How to Recognise Patterns</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Observations</a>
+						<a href="#section2" class="list-group-item list-group-item-action">Summary</a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+						<a href="#section2" class="list-group-item list-group-item-action"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

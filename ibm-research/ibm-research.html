@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IBM Research</title>
+		<link rel="stylesheet" href="style.css">
+		<!-- Bootstrap 4 CSS CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<body>
+		<!-- Google Charts -->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['Year', 'Expenses in $'],
+					['Nov 2017', 154.90],
+					['Dec 2017', 157.85],
+					['Jan 2018', 171.13],
+					['Feb 2018', 164.13],
+					['Mar 2018', 162.11],
+					['Apr 2018', 162.00],
+					['May 2018', 146.20],
+					['Jun 2018', 147.52],
+					['Jul 2018', 150.54],
+					['Aug 2018', 147.93],
+					['Sep 2018', 153.35],
+					['Oct 2018', 154.36],
+				]);
+
+
+				var options = {
+					title: 'Stock Prices',
+					curveType: 'function',
+					legend: { position: 'bottom' }
+				};
+
+				var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+				chart.draw(data, options);
+			}
+		</script>
+
+		<div class="container">
+			<h1>IBM Research</h1>
+			
+			<h3 class="center" style="margin-top: 10vh;">IBM Stock Prices</h3>
+			<div class="center">
+				<div id="curve_chart"></div>
+			</div>
+		
+			<p class="lead">
+				IBM was found in 1911. <br>
+				Renamed in 1924. <br> 
+				IBM Products: 
+				<ul>
+					<li>Floppy Disk</li>
+					<li>Automated Teller Machine (ATM)</li>
+					<li>Hard Disk Drive</li>
+					<li>Magnetic Strip Card</li>
+					<li>Relational Database</li>
+					<li>SQL Programming Language</li>
+					<li>Dynamic Random Access Memory (DRAM)</li>
+					<li>UPC Barcode</li>
+				</ul>
+			</p>
+
+			<p class="lead">
+				Nicknamed "Big Blue" <br>
+				World's largest employer of 2017 <br>
+				Over 380,000 employers A.K.A "IBMers" <br>
+				IBM Products and Services as of 2016: <br>
+				<ul>
+					<li>Cloud Computing</li>
+					<li>Cognitive Computing</li>
+					<li>Commerce</li>
+					<li>Data and Analytics</li>
+					<li>Internet of Things (IoT)</li>
+					<li>IT Infrastructure</li>
+					<li>Mobile</li>
+					<li>Security</li>
+				</ul>
+			</p>
+
+			<p class="lead">
+				IBM Cloud includes:
+				<ul>
+					<li>Infrastructure as a Service (IaaS)</li>
+					<li>Software as a Service (SaaS)</li>
+					<li>Platform as a Service (PaaS)</li>
+				</ul>
+			</p>
+
+			<p class="lead">
+				IBM provides Cloud Data Encryption Services (ICDES) using cryptographic splitting
+				<br>
+				Cryptographic splitting is the process of securing data over a computer network. The technique involves encrypting data, splitting data into smaller units, distributing the smaller units and then reversing the process from there. <br>
+				IBM host cloud computing and mobile technologies conferent "InterConnect" each year <br>
+				IBM Hardware: <br>
+					<ul>
+						<li>
+							POWER Microprocessor
+							<ul>
+								<li>Used in consoles like Xbox 360, Playstation 3 and Nintendo Wii U</li>
+							</ul>
+						</li>
+						<li>Secure BLUE: encryption hardware built into microprocessors</li>
+						<li>
+							TrueNorth: 
+							<ul>
+								<li>Revealed in 2014</li>
+								<li>Neuromorphic CMOS integrated circuit</li>
+								<li>Mimics human brain</li>
+								<li>10 billion neurones and 100 trillion synapses</li>
+								<li>Uses only 1kW of power</li>
+							</ul>
+						</li>
+					</ul>
+			</p>
+			<p class="lead">
+				IBM Watson is a technology platform <br>
+				<ul>
+					<li>
+						Uses natural language processing
+						<ul>
+							<li>Natural language processing (NLP) is a subfield of computer science, information engineering and artificial intelligence.</li>
+							<li>NLP is concerned with interactions between computers and human natural languages</li>
+							<li>Particularly how to program computer to process and analyse large pieces of data</li>
+						</ul>
+					</li>
+					<li>
+						Uses machine learning
+						<ul>
+							<li>A field of artificial intelligence</li>
+							<li>Uses statistical techniques to give computer systems ability to learn from data without being explicitly programmed</li>
+						</ul>
+					</li>
+					<li>Reveals insights form large amounts of unstructured data</li>
+				</ul>
+			</p>
+			<p class="lead">
+				IBM partnered with Memorial Sloan Kettering Cancer Centre to assisst with considering treatment optinos for oncology patients and for doing melanoma screenings.
+			</p>
+		</div>
+
+		<!-- Javascript Dependencies -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>
